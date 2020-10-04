@@ -6,9 +6,6 @@
      Create Date	: 2017/10/31
 ---------------------------------------------------------------------- */
 
-#ifndef __LPS331AP_EXAMPLE__
-#define __LPS331AP_EXAMPLE__
-
 #include <mega32a.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,8 +13,10 @@
 #include <math.h>
 #include <alcd.h>
 #include <i2c.h>
-#include "SENSOR_LPS331AP.h"
-#include "Porting_Layer.h"
+#include <datatype_Layer.h>
+#include <swi2c_Layer.h>
+#include <SENSOR_LPS331AP.h>
+
 
 void EXAMPLE_LPS331AP(void);
 
@@ -44,9 +43,7 @@ void EXAMPLE_LPS331AP(void)
 						
 		while(1)
 		{
-		
-
-
+	
 			/* get the temperature data & pressure data */
 			status = LPS331AP_GET_DATA(&pressure_data,&temperature_data);
 			
@@ -119,7 +116,6 @@ void EXAMPLE_LPS331AP(void)
 				lcd_char_data[0][5] = (INT32U)(pressure_data*100)%10;   						
 			}
 			
-
 			/* SHOW Pressure */                    
 	            	lcd_gotoxy(0,1);
 	            	lcd_putsf("P:");     
@@ -137,19 +133,14 @@ void EXAMPLE_LPS331AP(void)
 			lcd_putsf("hPa");			
 			/* --------- Temperature bolck --------- */
 
-
 			/* --------- Show ID bolck --------- */
 			lcd_gotoxy(0,3);
 			lcd_putsf("LPS331AP");
 			/* --------- Show ID bolck --------- */
 
-
 			/* tiny delay */
-			delay_ms(100);
-
-			
+			delay_ms(100);			
 		}
 		
 }
 
-#endif		//#ifndef __LPS331AP_EXAMPLE__

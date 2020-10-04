@@ -5,17 +5,16 @@
      Function		: SENSOR_LPS331AP
      Create Date	: 2017/10/31
 ---------------------------------------------------------------------- */
-#ifndef __LPS331AP_FUNCTION__
-#define __LPS331AP_FUNCTION__
-
 
 #include <stdio.h>
 #include <math.h>
 #include <delay.h>
-#include "SENSOR_LPS331AP.h"
-#include "Porting_Layer.h"
+#include <datatype_Layer.h>
+#include <swi2c_Layer.h>
+#include <SENSOR_LPS331AP.h>
 
-#define LPS331_DEBGUG		1		/* set "1" to printf debug message */
+
+#define LPS331_DEBUG			(1)		/* set "1" to printf debug message */
 
 
 /********************************************* SYSTEM *************************************************/
@@ -176,7 +175,7 @@ CHAR8S LPS331AP_SET_NOISE_ADJ(void)
 {
 	CHAR8S status = 0;
 	
-#if LPS331_DEBGUG
+#if LPS331_DEBUG
 		printf("Set resolution reg[0x%x]=0x%x\r\n",LPS331AP_REG_RES_CONF,LPS331AP_RESOLUTION);
 #endif
 
@@ -229,9 +228,7 @@ CHAR8S LPS331AP_GET_DATA(FLOAT *pressure,FLOAT *temperature)
 		if((LPS331AP_SET_REGCTRL1 & 0x70) == 0)/*check bit6~4 = '000' is ONE SHOT mode in LPS331AP_REG_CTRL1 */
 		{
 		
-
 			printf("LPS331AP_GET_DATA -> one shot mode\r\n");
-
 
 			i2c_stop_hang();
 			
@@ -245,7 +242,7 @@ CHAR8S LPS331AP_GET_DATA(FLOAT *pressure,FLOAT *temperature)
 			i2c_stop_hang();
 
 
-#if LPS331_DEBGUG
+#if LPS331_DEBUG
 			printf("write LPS331AP_GET_DATA reg[0x%x]=0x%x\r\n",LPS331AP_REG_CTRL2,LP331AP_ONE_SHOT_MODE); 
 #endif
 			
@@ -278,8 +275,9 @@ CHAR8S LPS331AP_GET_DATA(FLOAT *pressure,FLOAT *temperature)
 				printf("Get status fail \r\n");
 				return -1; 	/*write fail*/
 			}
-#if LPS331_DEBGUG			
-			//printf("LPS331AP_REG_STATUS = [0x%x]\r\n",read_data);
+			
+#if LPS331_DEBUG			
+			printf("LPS331AP_REG_STATUS = [0x%x]\r\n",read_data);
 #endif			
 
 			/*
@@ -312,7 +310,7 @@ CHAR8S LPS331AP_GET_DATA(FLOAT *pressure,FLOAT *temperature)
 		if(cnt>=1000) 
 		{
 		
-#if LPS331_DEBGUG			
+#if LPS331_DEBUG			
 			printf("LPS331AP wait data timeout \r\n");
 #endif		
 			return -2;	/*timeout*/
@@ -420,7 +418,7 @@ CHAR8S LPS331AP_GET_DATA(FLOAT *pressure,FLOAT *temperature)
 		T_RAW = (INT16S)( ((INT16U)pressure_temp_raw_data[4]<<8) |((INT16U)pressure_temp_raw_data[3]<<0)) & 0xffff;/*mask 16bit*/
 
 
-#if LPS331_DEBGUG
+#if LPS331_DEBUG
 		for(cnt = 0 ;cnt<5;cnt++)
 		{
 			printf("pressure_temp_raw_data [%d]= 0x%X[%d]\r\n",cnt,pressure_temp_raw_data[cnt],pressure_temp_raw_data[cnt]);
@@ -457,7 +455,7 @@ CHAR8S LPS331AP_GET_CALCULATE(INT32U P_DATA,INT16U T_DATA,FLOAT *P_RESULT , FLOA
 	#endif 
 
 	
-#if LPS331_DEBGUG
+#if LPS331_DEBUG
 		printf("P_DATA sign 23bit = 0x%lX \r\n",(P_DATA&0x800000));
 #endif	
 
@@ -598,6 +596,4 @@ CHAR8S LPS331AP_SET_INT_THD_PRESSURE(INT16U THD)
 		}
 }
 /*--------------------------------------------------------------------------------------------------*/
-//********************************************* SYSTEM *************************************************
-
-#endif		//#ifndef __LPS331AP_FUNCTION__
+/********************************************** SYSTEM **************************************************/

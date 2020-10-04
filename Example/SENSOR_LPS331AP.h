@@ -186,7 +186,7 @@
 #define LPS331AP_OUTPUT_RATE_25HZ_1HZ			(0x40)	/*pressure 25HZ,  temperature1HZ  */
 #define LPS331AP_OUTPUT_RATE_7HZ_7HZ			(0x50)	/*pressure 7HZ,  temperature7HZ  */
 #define LPS331AP_OUTPUT_RATE_12_5HZ_12_5HZ	(0x60)	/*pressure 12.5HZ,  temperature12.5HZ  */
-#define LPS331AP_OUTPUT_RATE_25HZ_25HZ			(0x70)	/*pressure 25HZ,  temperature25HZ  */
+#define LPS331AP_OUTPUT_RATE_25HZ_25HZ		(0x70)	/*pressure 25HZ,  temperature25HZ  */
 
 #define LPS331AP_POWER_DOWN						(0x00)	/*bit7*/
 #define LPS331AP_ACTIVE								(0x80)	/*bit7*/
@@ -207,7 +207,7 @@
 #define LPS331AP_AUTO_ZERO  						(0x02)		/*enable auto zero*/
 /*------------------------------------------*/
 /** function parameter : LPS331AP_GET_DATA use.*/
-#define LP331AP_ONE_SHOT_MODE					(0x01)
+#define LP331AP_ONE_SHOT_MODE						(0x01)
 /*------------------------------------------*/
 
 /*------------------------------------------*/
@@ -217,10 +217,10 @@
 
 #define LP331AP_INT_PIN_STATUS_GND 				(0x00)  
 #define LP331AP_INT_PIN_STATUS_P_HIGH			(0x01)		/*pressure high*/
-#define LP331AP_INT_PIN_STATUS_P_LOW				(0x02)		/*pressure low*/
-#define LP331AP_INT_PIN_STATUS_P_LOW_HIGH		(0x03)		/*pressure low or high*/	
-#define LP331AP_INT_PIN_STATUS_DATA_READY		(0x04)		/*data ready*/
-#define LP331AP_INT_PIN_STATUS_TRI_STATE			(0x07)		
+#define LP331AP_INT_PIN_STATUS_P_LOW			(0x02)		/*pressure low*/
+#define LP331AP_INT_PIN_STATUS_P_LOW_HIGH	(0x03)		/*pressure low or high*/	
+#define LP331AP_INT_PIN_STATUS_DATA_READY	(0x04)		/*data ready*/
+#define LP331AP_INT_PIN_STATUS_TRI_STATE		(0x07)		
 
 /*PIN INT 1*/
 #define LP331AP_INT_PIN1 		(LP331AP_INT_PIN_STATUS_GND)
@@ -245,6 +245,7 @@
 */
 #define LPS331AP_SET_REGCTRL1		(LPS331AP_ACTIVE  | LPS331AP_OUTPUT_RATE_ONE_SHOT)
 //#define LPS331AP_SET_REGCTRL1		(LPS331AP_ACTIVE | LPS331AP_OUTPUT_RATE_12_5HZ_12_5HZ)
+
 /*
 	set  LPS331AP_REG_RES_CONF
 */
@@ -339,4 +340,4 @@ CHAR8S LPS331AP_SET_INT_CFG(void);
 CHAR8S LPS331AP_SET_INT_THD_PRESSURE(INT16U THD);
 /*--------------------------------------------------------------------------------------------------*/
 /********************************************** SYSTEM **************************************************/
-#endif		//#ifndef __LPS331AP_HEADER__
+#endif		/*#ifndef __LPS331AP_HEADER__*/
